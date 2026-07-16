@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Suvarna Gold Loans</title>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory: #FBF7EF; --bottle: #1F3B2C; --bottle-dark: #142A1F;
+    --gold: #C6992F; --maroon: #7A2331; --ink: #241F18; --line: rgba(36,31,24,0.15);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Work Sans', sans-serif; background: var(--ivory); color: var(--ink); }
+  header { background: var(--bottle-dark); color: var(--ivory); padding: 18px 28px; display: flex; justify-content: space-between; align-items: center; }
+  header h1 { font-size: 1.1rem; margin: 0; }
+  main { max-width: 1000px; margin: 0 auto; padding: 28px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 22px; margin-bottom: 24px; }
+  .card h2 { font-size: 1rem; margin-top: 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-family: 'Space Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--maroon); }
+  select, input, button { font-family: inherit; font-size: 0.85rem; padding: 6px 8px; border: 1px solid var(--line); border-radius: 4px; }
+  button { background: var(--maroon); color: #fff; border: none; cursor: pointer; padding: 8px 14px; }
+  button.secondary { background: var(--bottle); }
+  button:hover { opacity: 0.9; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
+  #loginScreen { max-width: 360px; margin: 80px auto; }
+  #dashboard { display: none; }
+  .muted { color: #6b6656; font-size: 0.8rem; }
+  .status-new { color: var(--maroon); font-weight: 600; }
+  .status-contacted { color: #8a6d1a; font-weight: 600; }
+  .status-closed { color: var(--bottle); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Suvarna Gold Loans — Admin</h1>
+  <span class="muted" id="whoami"></span>
+</header>
+
+<main>
+  <div class="card" id="loginScreen">
+    <h2>Enter admin password</h2>
+    <div class="row">
+      <input type="password" id="passwordInput" placeholder="Admin password" style="flex:1">
+      <button id="loginBtn">Enter</button>
+    </div>
+    <p class="muted" id="loginError"></p>
+  </div>
+
+  <div id="dashboard">
+    <div class="card">
+      <h2>Today's gold rate & contact details</h2>
+      <div class="row">
+        <label>₹/gram (24K)&nbsp;<input type="number" id="rateInput" style="width:110px"></label>
+        <label>Phone&nbsp;<input type="text" id="phoneInput" style="width:180px"></label>
+        <label>Address&nbsp;<input type="text" id="addressInput" style="width:260px"></label>
+        <button id="saveConfigBtn">Save</button>
+        <span class="muted" id="configStatus"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row" style="justify-content:space-between">
+        <h2 style="margin:0">Inquiry leads</h2>
+        <div class="row">
+          <button class="secondary" id="refreshBtn">Refresh</button>
+          <button class="secondary" id="exportBtn">Export CSV</button>
+        </div>
+      </div>
+      <table id="leadsTable">
+        <thead>
+          <tr>
+            <th>When</th><th>Name</th><th>Phone</th><th>City</th><th>Gold (g)</th><th>Est. loan</th><th>Message</th><th>Status</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="leadsBody"></tbody>
+      </table>
+      <p class="muted" id="leadsEmpty" style="display:none">No inquiries yet.</p>
+    </div>
+  </div>
+</main>
+
+<script src="admin.js"></script>
+</body>
+</html>
